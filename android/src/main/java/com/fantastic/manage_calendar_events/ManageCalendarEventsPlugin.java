@@ -22,7 +22,8 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
+// XÓA dòng import này
+// import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /**
  * ManageCalendarEventsPlugin
@@ -60,18 +61,19 @@ public class ManageCalendarEventsPlugin implements FlutterPlugin, ActivityAware,
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
         Log.d("DART/NATIVE", "onDetachedFromEngine");
-        methodChannel.setMethodCallHandler(null);
+        if (methodChannel != null) {
+            methodChannel.setMethodCallHandler(null);
+        }
     }
 
-    /**
-     * Plugin registration.
-     */
+    // XÓA TOÀN BỘ method registerWith này
+    /*
     public static void registerWith(Registrar registrar) {
         Context context = registrar.context();
         Activity activity = registrar.activity();
         setup(new ManageCalendarEventsPlugin(), registrar.messenger(), activity, context);
     }
-
+    */
 
     @Override
     public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
@@ -88,11 +90,13 @@ public class ManageCalendarEventsPlugin implements FlutterPlugin, ActivityAware,
     @Override
     public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
         Log.d("DART/NATIVE", "onReattachedToActivityForConfigChanges");
+        activity = binding.getActivity();
     }
 
     @Override
     public void onDetachedFromActivity() {
         Log.d("DART/NATIVE", "onDetachedFromActivity");
+        activity = null;
     }
 
     @Override

@@ -315,7 +315,8 @@ public class CalendarOperations {
         } finally {
             cur.close();
         }
-        ArrayList attendeeList = new ArrayList<>(attendees);
+        // Fixed: Added generic type parameter
+        ArrayList<CalendarEvent.Attendee> attendeeList = new ArrayList<>(attendees);
         Collections.sort(attendeeList, new Comparator<CalendarEvent.Attendee>() {
             @Override
             public int compare(CalendarEvent.Attendee o1, CalendarEvent.Attendee o2) {
